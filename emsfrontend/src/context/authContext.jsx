@@ -25,6 +25,7 @@ const AuthContext = ({ children }) => {
           }
         } else {
           setUser(null);
+          setLoading(false);
         }
       } catch (error) {
         console.log(error);
@@ -38,6 +39,7 @@ const AuthContext = ({ children }) => {
     verifyUser();
   }, []);
   console.log("first", user);
+
   const login = (user) => {
     setUser(user);
   };
