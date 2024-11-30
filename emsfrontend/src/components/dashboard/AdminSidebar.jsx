@@ -57,7 +57,7 @@ const AdminSidebar = () => {
           to=" "
           className="flex items-center space-x-4  py-2.5 px-4 rounded"
         >
-          <i class="fa-solid fa-gear"></i>
+          <i className="fa-solid fa-gear"></i>
           <span>Settings</span>
         </NavLink>
       </div>
