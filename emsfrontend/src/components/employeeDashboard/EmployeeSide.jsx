@@ -57,7 +57,7 @@ const EmployeeSide = () => {
           <span>Salary</span>
         </NavLink>
         <NavLink
-          to="/employee-dashboard/setting "
+          to="/employee-dashboard/setting"
           className={({ isActive }) =>
             `${
               isActive ? "bg-blue-500" : ""
