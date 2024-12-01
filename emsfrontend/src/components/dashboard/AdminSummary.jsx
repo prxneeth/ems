@@ -16,7 +16,7 @@ const AdminSummary = () => {
           icon={<i className="fa-solid fa-building"></i>}
           text="Departments"
           number={5}
-          color="bg-green-500"
+          color="bg-pink-500"
         />
         <Summarycard
           icon={<i className="fa-solid fa-sack-dollar"></i>}

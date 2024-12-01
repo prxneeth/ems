@@ -1,30 +1,41 @@
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
 const verifyUser = async (req, res, next) => {
     try {
+        // Check for Authorization header
+        const authHeader = req.headers.authorization;
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return res.status(401).json({ success: false, error: "Authorization header missing or malformed" });
+        }
 
-        const token = req.headers.authorization.split(' ')[1];
+        // Extract the token
+        const token = authHeader.split(' ')[1];
         if (!token) {
-            return res.status(404).json({ success: false, error: "token not provided" })
+            return res.status(401).json({ success: false, error: "Token not provided" });
         }
 
-        const decoded = await jwt.verify(token, process.env.JWT_KEY)
-        if (!decoded) {
-            return res.status(404).json({ success: false, error: "token not valid" })
+        // Verify the token
+        const decoded = jwt.verify(token, process.env.JWT_KEY);
+        if (!decoded || !decoded._id) {
+            return res.status(401).json({ success: false, error: "Invalid token" });
         }
-        const user = await User.findById({ _id: decoded._id }).select('-password')
 
+        // Find the user in the database
+        const user = await User.findById(decoded._id).select('-password');
         if (!user) {
-            return res.status(404).json({ success: false, error: "user not found" })
+            return res.status(404).json({ success: false, error: "User not found" });
         }
 
-        req.user = user
+        // Attach user to request object
+        req.user = user;
 
-        next()
+        // Proceed to the next middleware or route handler
+        next();
     } catch (error) {
-        return res.status(404).json({ success: false, error: "serverside error" })
+        console.error("Error in verifyUser middleware:", error.message);
+        return res.status(500).json({ success: false, error: "Internal server error" });
     }
-}
+};
 
-export default verifyUser
+export default verifyUser;
