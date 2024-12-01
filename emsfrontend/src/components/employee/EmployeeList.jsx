@@ -8,7 +8,7 @@ const EmployeeList = () => {
   const [employee, setEmployee] = useState([]);
   const [empLoading, setEmpLoading] = useState(false);
 
-  const [filteredEmployees, setFilteredEmployees] = useState(null);
+  const [filteredEmployees, setFilteredEmployees] = useState([]);
 
   useEffect(() => {
     const fetchEmployee = async () => {

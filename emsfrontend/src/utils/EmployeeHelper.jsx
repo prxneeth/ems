@@ -59,6 +59,28 @@ export const fetchDepartments = async () => {
   return departments;
 };
 
+export const getEmployees = async (id) => {
+  let employees = [];
+  try {
+    const response = await axios.get(
+      `http://localhost:1000/api/employee/department/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")} `,
+        },
+      }
+    );
+    if (response.data.success) {
+      employees = response.data.employees;
+    }
+  } catch (error) {
+    if (error.response && !error.response.data.success) {
+      alert(error.response.data.error);
+    }
+  }
+  return employees;
+};
+
 export const EmployeeButtons = ({ _id }) => {
   const navigate = useNavigate();
 
@@ -72,11 +94,14 @@ export const EmployeeButtons = ({ _id }) => {
       </button>
       <button
         onClick={() => navigate(`/admin-dashboard/employee/edit/${_id}`)}
-        className="px-4 py-1 border-none bg-pink-500 hover:bg-red-600 text-white rounded-md"
+        className="px-4 py-1 border-none bg-pink-500 hover:bg-pink-600 text-white rounded-md"
       >
         Edit
       </button>
-      <button className="px-4 py-1 border-none bg-green-500 hover:bg-red-600 text-white rounded-md">
+      <button
+        onClick={() => navigate(`/admin-dashboard/employee/salary/${_id}`)}
+        className="px-4 py-1 border-none bg-green-500 hover:bg-green-600 text-white rounded-md"
+      >
         Salary
       </button>
       <button className="px-4 py-1 border-none bg-red-500 hover:bg-red-600 text-white rounded-md">

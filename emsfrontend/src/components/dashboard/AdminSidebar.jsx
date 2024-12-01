@@ -51,8 +51,12 @@ const AdminSidebar = () => {
           <span>Leaves</span>
         </NavLink>
         <NavLink
-          to=""
-          className="flex items-center space-x-4  py-2.5 px-4 rounded"
+          to="/admin-dashboard/salary/add"
+          className={({ isActive }) =>
+            `${
+              isActive ? "bg-blue-500" : ""
+            }flex items-center space-x-4  py-2.5 px-4 rounded`
+          }
         >
           <i className="fa-solid fa-sack-dollar"></i>
           <span>Salary</span>
