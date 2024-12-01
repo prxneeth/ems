@@ -67,7 +67,7 @@ const getEmployee = async (req, res) => {
             .populate('userId', { password: 0 })
             .populate('department');
 
-        console.log('Employee Data:', employee); // Debug log
+
 
         if (!employee) {
             return res.status(404).json({ success: false, error: 'Employee not found' });
@@ -75,7 +75,7 @@ const getEmployee = async (req, res) => {
 
         return res.status(200).json({ success: true, employee });
     } catch (error) {
-        console.error('Error fetching employee:', error); // Debug log
+
         return res.status(500).json({ success: false, error: 'get employee server error' });
     }
 };
@@ -113,4 +113,17 @@ const updateEmployee = async (req, res) => {
 
 }
 
-export { addEmployee, upload, getEmployees, getEmployee, updateEmployee }
+const fetchEmployeeByDep = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const employees = await Employee.find({ department: id })
+
+
+        return res.status(200).json({ success: true, employees });
+    } catch (error) {
+
+        return res.status(500).json({ success: false, error: 'get employeeByDepId server error' });
+    }
+}
+
+export { addEmployee, upload, getEmployees, getEmployee, updateEmployee, fetchEmployeeByDep }
