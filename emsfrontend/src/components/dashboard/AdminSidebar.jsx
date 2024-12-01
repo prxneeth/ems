@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { NavLink } from "react-router-dom";
 const AdminSidebar = () => {
@@ -21,8 +21,12 @@ const AdminSidebar = () => {
           <span>Dashboard</span>
         </NavLink>
         <NavLink
-          to="/admin-dashboard"
-          className="flex items-center space-x-4  py-2.5 px-4 rounded"
+          to="/admin-dashboard/employees"
+          className={({ isActive }) =>
+            `${
+              isActive ? "bg-blue-500" : ""
+            } flex items-center space-x-4 duration-300  py-2.5 px-4 rounded`
+          }
         >
           <i className="fa-solid fa-users"></i>
           <span>Employees</span>
