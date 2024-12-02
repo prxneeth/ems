@@ -66,11 +66,11 @@ const AdminSidebar = () => {
           <span>Salary</span>
         </NavLink>
         <NavLink
-          to="/admin-dashboard/setting "
+          to="/admin-dashboard/setting"
           className={({ isActive }) =>
-            ` ${
+            `${
               isActive ? "bg-blue-500" : ""
-            } flex items-center space-x-4  py-2.5 px-4 rounded`
+            } flex items-center space-x-4 duration-300 py-2.5 px-4 rounded`
           }
         >
           <i className="fa-solid fa-gear"></i>
