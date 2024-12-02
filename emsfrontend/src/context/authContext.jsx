@@ -38,7 +38,6 @@ const AuthContext = ({ children }) => {
     };
     verifyUser();
   }, []);
-  console.log("first", user);
 
   const login = (user) => {
     setUser(user);

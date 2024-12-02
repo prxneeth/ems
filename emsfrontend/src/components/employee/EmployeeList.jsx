@@ -19,7 +19,7 @@ const EmployeeList = () => {
             Authorization: `Bearer ${localStorage.getItem("token")} `,
           },
         });
-        console.log("emp", response.data);
+
         if (response.data.success) {
           let sno = 1;
           const data = await response.data.employees.map((emp) => ({

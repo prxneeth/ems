@@ -1,7 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Summarycard from "./Summarycard";
+import axios from "axios";
 
 const AdminSummary = () => {
+  const [summary, setSummary] = useState({});
+
+  useEffect(() => {
+    const fetchSummary = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:1000/api/dashboard/summary`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        setSummary(response.data);
+      } catch (error) {
+        if (error.response) {
+          alert(error.response.data.error);
+        }
+        console.error(error.message);
+      }
+    };
+    fetchSummary();
+  }, []);
+
+  if (!summary || Object.keys(summary).length === 0) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="p-6">
       <h3 className="text-2xl font-bold">Dashboard overview</h3>
@@ -9,19 +38,19 @@ const AdminSummary = () => {
         <Summarycard
           icon={<i className="fa-solid fa-users"></i>}
           text="Total Employees"
-          number={15}
+          number={summary.totalEmployees}
           color="bg-blue-500"
         />
         <Summarycard
           icon={<i className="fa-solid fa-building"></i>}
           text="Departments"
-          number={5}
+          number={summary.totalDepartments}
           color="bg-pink-500"
         />
         <Summarycard
           icon={<i className="fa-solid fa-sack-dollar"></i>}
           text="Salary"
-          number="$654"
+          number={summary.totalSalary}
           color="bg-yellow-500"
         />
       </div>
@@ -31,25 +60,25 @@ const AdminSummary = () => {
           <Summarycard
             icon={<i className="fa-solid fa-sack-dollar"></i>}
             text="Leave Applied"
-            number={5}
+            number={summary.leaveSummary?.appliedFor || 0}
             color="bg-purple-500"
           />
           <Summarycard
             icon={<i className="fa-solid fa-sack-dollar"></i>}
             text="Leave Approved"
-            number={2}
+            number={summary.leaveSummary?.approved || 0}
             color="bg-green-500"
           />
           <Summarycard
             icon={<i className="fa-solid fa-sack-dollar"></i>}
             text="Leave Pending"
-            number={4}
+            number={summary.leaveSummary?.pending || 0}
             color="bg-orange-500"
           />
           <Summarycard
             icon={<i className="fa-solid fa-sack-dollar"></i>}
             text="Leave Rejected"
-            number={1}
+            number={summary.leaveSummary?.rejected || 0}
             color="bg-red-500"
           />
         </div>
