@@ -1,26 +1,27 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useAuth } from "../../context/authContext";
 
 const ViewSalary = () => {
   const [salaries, setSalaries] = useState(null);
   const [filteredSalaries, setFilteredSalaries] = useState([]);
   const { id } = useParams();
+  const { user } = useAuth();
 
-  console.log("Employee ID:", id);
   let sno = 1;
 
   const fetchSalaries = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:1000/api/salary/${id}`,
+        `http://localhost:1000/api/salary/${id}/${user.role}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
-      console.log(response.data);
+
       if (response.data.success) {
         setSalaries(response.data.salary);
         setFilteredSalaries(response.data.salary);
@@ -48,23 +49,15 @@ const ViewSalary = () => {
       {filterSalaries === null ? (
         <div>Loading</div>
       ) : (
-        <div className="overflow-x-auto p-5">
+        <div className="overflow-x-auto p-6">
           <div className="text-center">
             <h2 className="text-2xl font-bold ">Salary History</h2>
           </div>
-          <div className="flex justify-end my-3">
-            <input
-              type="text"
-              placeholder="serach by emp ID"
-              className="border px-2 rounded-md border-gray-300 py-1 mr-3"
-              onChange={filterSalaries}
-            />
-          </div>
 
           {filteredSalaries.length > 0 ? (
-            <table className="w-full text-sm text-left text-gray-500">
+            <table className="w-full text-sm text-left mt-5 text-gray-500">
               <thead className="text-xs text-gray-700 uppercase bg-gray-200 border border-gray-300">
-                <tr>
+                <tr className="bg-blue-500 text-white">
                   <th className="px-6 py-3"> SNO</th>
                   <th className="px-6 py-3"> EMP ID</th>
                   <th className="px-6 py-3"> Salary</th>

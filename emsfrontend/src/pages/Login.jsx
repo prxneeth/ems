@@ -20,7 +20,7 @@ const Login = () => {
         "http://localhost:1000/api/auth/login",
         { email, password }
       );
-      console.log(response);
+
       if (response.data.success) {
         alert("successfully logged in");
         login(response.data.user);

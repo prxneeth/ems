@@ -7,7 +7,7 @@ import axios from "axios";
 const Table = () => {
   const [leaves, setLeaves] = useState([]);
   const [filteredLeaves, setFilteredLeaves] = useState(null);
-  console.log("rst", leaves);
+
   useEffect(() => {
     const fetchLeaves = async () => {
       try {
@@ -16,7 +16,6 @@ const Table = () => {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
-        console.log("API Response:", response.data);
 
         if (response.data.success && Array.isArray(response.data.leaves)) {
           const data = response.data.leaves.map((leave, index) => ({

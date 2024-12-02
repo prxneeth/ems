@@ -6,10 +6,10 @@ import { addLeave, getLeave, getLeaves, getLeaveDetail, updateLeave } from '../c
 
 
 router.get('/', authMiddleware, getLeaves)
-router.post('/add', authMiddleware, addLeave)
-router.get('/:id', authMiddleware, getLeave)
-router.put('/:id', authMiddleware, updateLeave)
 router.get('/detail/:id', authMiddleware, getLeaveDetail)
+router.post('/add', authMiddleware, addLeave)
+router.get('/:id/:role', authMiddleware, getLeave)
+router.put('/:id', authMiddleware, updateLeave)
 
 
 export default router

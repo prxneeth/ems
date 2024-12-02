@@ -6,16 +6,14 @@ import axios from "axios";
 const List = () => {
   let sno = 1;
   const { user } = useAuth();
-  console.log("user", user);
 
   const [leaves, setleaves] = useState(null);
-  console.log("leaves", leaves);
 
   const { id } = useParams();
   const fetchLeaves = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:1000/api/leave/${id}`,
+        `http://localhost:1000/api/leave/${id}/${user.role}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
