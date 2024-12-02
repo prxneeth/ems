@@ -44,8 +44,12 @@ const AdminSidebar = () => {
         </NavLink>
 
         <NavLink
-          to=""
-          className="flex items-center space-x-4  py-2.5 px-4 rounded"
+          to="/admin-dashboard/leaves"
+          className={({ isActive }) =>
+            `${
+              isActive ? "bg-blue-500" : ""
+            }  flex items-center space-x-4 duration-300 py-2.5 px-4 rounded`
+          }
         >
           <i className="fa-solid fa-calendar-days"></i>
           <span>Leaves</span>
@@ -55,15 +59,19 @@ const AdminSidebar = () => {
           className={({ isActive }) =>
             `${
               isActive ? "bg-blue-500" : ""
-            }flex items-center space-x-4  py-2.5 px-4 rounded`
+            } flex items-center space-x-4 duration-300 py-2.5 px-4 rounded`
           }
         >
           <i className="fa-solid fa-sack-dollar"></i>
           <span>Salary</span>
         </NavLink>
         <NavLink
-          to=" "
-          className="flex items-center space-x-4  py-2.5 px-4 rounded"
+          to="/admin-dashboard/setting "
+          className={({ isActive }) =>
+            ` ${
+              isActive ? "bg-blue-500" : ""
+            } flex items-center space-x-4  py-2.5 px-4 rounded`
+          }
         >
           <i className="fa-solid fa-gear"></i>
           <span>Settings</span>
