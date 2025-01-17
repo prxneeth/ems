@@ -23,14 +23,26 @@ const AddEmployee = () => {
       setFormData((prevData) => ({ ...prevData, [name]: value }));
     }
   };
+  console.log("first", formData);
+
+  const formDataObj = new FormData();
+  Object.keys(formData).forEach((key) => {
+    formDataObj.append(key, formData[key]);
+  });
+  console.log("FormDataObj", formDataObj);
+
+  for (let [key, value] of formDataObj.entries()) {
+    console.log(key, value);
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formDataObj = new FormData();
-    Object.keys(formData).forEach((key) => {
-      formDataObj.append(key, formData[key]);
-    });
+    // const formDataObj = new FormData();
+    // Object.keys(formData).forEach((key) => {
+    //   formDataObj.append(key, formData[key]);
+    // });
+    // console.log("FormDataObj", formDataObj);
     try {
       const response = await axios.post(
         "http://localhost:1000/api/employee/add",

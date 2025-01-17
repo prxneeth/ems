@@ -1,3 +1,5 @@
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, Slide } from "react-toastify";
 import {
   BrowserRouter as Router,
   Routes,
@@ -130,6 +132,18 @@ function App() {
           </Route>
         </Routes>
       </Router>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        transition={Slide}
+      />
     </>
   );
 }

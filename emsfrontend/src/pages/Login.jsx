@@ -3,6 +3,7 @@ import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -22,7 +23,7 @@ const Login = () => {
       );
 
       if (response.data.success) {
-        alert("successfully logged in");
+        toast.success("successfully logged in");
         login(response.data.user);
         localStorage.setItem("token", response.data.token);
         if (response.data.user.role === "admin") {
